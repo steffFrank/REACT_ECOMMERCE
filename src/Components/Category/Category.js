@@ -14,3 +14,4 @@ export const Category = ({category}) => {
         </div>
     )
 }
+
