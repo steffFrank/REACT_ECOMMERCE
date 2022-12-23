@@ -1,4 +1,5 @@
 import { Categories } from "./Components/Categories/Categories";
+import "./App.scss";
 
 const App = () => {
 
