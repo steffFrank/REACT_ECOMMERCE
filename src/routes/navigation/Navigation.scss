@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    align-items: center;
+    margin-bottom: 30px;
+    position: sticky;
+    top: 0;
+
+    .nav {
+        display: flex;
+        text-transform: uppercase;
+        height: inherit;
+        &__link {
+            margin-right: 20px;
+            text-align: center;
+            padding-top: 20px;
+            height: 50px;
+            align-self: center;
+            font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+            border-top: 2px solid transparent;
+            &:hover {
+                border-top: 2px solid aqua;
+            }
+        }
+    }
+    .logo {
+        transform: scale(0.8);
+    }
+}
+
+
