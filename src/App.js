@@ -1,5 +1,5 @@
 import { Home } from "./routes/home/Home";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { Shop } from "./routes/shop/Shop";
 import { Navigation } from "./routes/navigation/Navigation";
 import "./App.scss";
@@ -8,17 +8,31 @@ import { Signin } from "./routes/signin/Signin";
 
 const App = () => {
   const links = [
-    { name: "shop", text: "shop" },
-    { name: "contact" , text: "contact"},
-    { name: "signin", text: "signin" },
+    { path: "shop", text: "shop", element: <Shop />},
+    { path: "contact" , text: "contact", element: <Contact />},
+    { path: "sign-in", text: "signin", element: <Signin />},
+    { path: "/", text: "home", element: <Home />}
   ];
+
+  const routes = links.map((link, index) => {
+    return <Route key={index} path={link.path} element={link.element} />
+  })
+
+  const navMenu = links.map((link, index) => {
+    if (link.path !== "/") {
+      return (
+        <Link key={index} to={link.path} className="nav__link">
+          <li>{link.text}</li>
+        </Link>
+      );
+    }
+    return false;
+  });
+
   return (
     <Routes>
-      <Route path="/" element={<Navigation links={links} />}>
-        <Route path="/" element={<Home />} />
-        <Route path="shop" element={<Shop />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="signin" element={<Signin />} />
+      <Route path="/" element={<Navigation navMenu={navMenu} />}>
+        {routes}
       </Route>
     </Routes>
   );
