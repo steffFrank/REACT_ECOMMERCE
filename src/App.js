@@ -5,13 +5,15 @@ import { Navigation } from "./routes/navigation/Navigation";
 import "./App.scss";
 import { Contact } from "./routes/contact/Contact";
 import { Signin } from "./routes/signin/Signin";
+import { SignUp } from "./Components/SignUpForm/SignUpForm";
 
 const App = () => {
   const links = [
     { path: "shop", text: "shop", element: <Shop />},
     { path: "contact" , text: "contact", element: <Contact />},
     { path: "sign-in", text: "signin", element: <Signin />},
-    { path: "/", text: "home", element: <Home />}
+    { path: "/", text: "home", element: <Home />},
+    { path: "sign-up", text: "signup", element: <SignUp />}
   ];
 
   const routes = links.map((link, index) => {
