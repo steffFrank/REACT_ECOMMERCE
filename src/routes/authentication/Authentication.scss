@@ -1,10 +1,7 @@
-.sign-in-form {
-    display: flex;
-    flex-direction: column;
-    width: 380px;
-}
-
-.btns-container {
-    display: flex;
-    justify-content: space-between;
+main {
+    width: 80vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 30px;
+    margin: 30px auto;
 }
