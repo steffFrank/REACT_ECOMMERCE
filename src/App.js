@@ -1,19 +1,20 @@
-import { Home } from "./routes/home/Home";
+import  {Home}  from "./routes/home/Home";
 import { Routes, Route, Link } from "react-router-dom";
-import { Shop } from "./routes/shop/Shop";
-import { Navigation } from "./routes/navigation/Navigation";
-import "./App.scss";
-import { Contact } from "./routes/contact/Contact";
-import { Authentication } from "./routes/authentication/Authentication";
-import { SignUp } from "./Components/SignUpForm/SignUpForm";
+import {Shop} from "./routes/shop/Shop";
+import {Navigation}  from "./routes/navigation/Navigation";
+import {Contact}  from "./routes/contact/Contact";
+import {Authentication}  from "./routes/authentication/Authentication";
 
-const App = () => {
+import "./App.scss";
+
+
+
+export const App = () => {
   const links = [
     { path: "shop", text: "shop", element: <Shop />},
     { path: "contact" , text: "contact", element: <Contact />},
-    { path: "sign-in", text: "sign in", element: <Authentication />},
+    { path: "auth", text: "sign in", element: <Authentication />},
     { path: "/", text: "home", element: <Home />},
-    { path: "sign-up", text: "sign up", element: <SignUp />}
   ];
 
   const routes = links.map((link, index) => {
@@ -39,5 +40,3 @@ const App = () => {
     </Routes>
   );
 };
-
-export default App;
