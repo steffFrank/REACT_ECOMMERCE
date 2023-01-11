@@ -1,7 +1,7 @@
 import { signInWithGooglePopup, createUserDocumentFromAuth } from "../../utils/firebase/firebase";
 import { Button } from "../Button/Button";
 import { FormInput } from "../FormInput/FormInput";
-import { useState, useContext } from "react";
+import { useState, useContext} from "react";
 import "./SignInForm.scss";
 import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase";
 import { UserContext } from "../../contexts/user";
@@ -25,6 +25,7 @@ export const SignInForm = () => {
     const logGoogleUser = async () => {
         try {
             const response = await signInWithGooglePopup();
+            setCurrentUser(response.user);
             await createUserDocumentFromAuth(response.user);
         } catch(error) {
             console.log(error);
@@ -38,6 +39,7 @@ export const SignInForm = () => {
             const user = await signInAuthUserWithEmailAndPassword(email, password);
             setCurrentUser(user);
             setFormFields(defaultFormFields);
+
         } catch(error) {
             if(error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
                 alert("Please check your email and password");

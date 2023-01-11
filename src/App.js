@@ -7,8 +7,6 @@ import {Authentication}  from "./routes/authentication/Authentication";
 
 import "./App.scss";
 
-
-
 export const App = () => {
   const links = [
     { path: "shop", text: "shop", element: <Shop />},
@@ -21,20 +19,9 @@ export const App = () => {
     return <Route key={index} path={link.path} element={link.element} />
   })
 
-  const navMenu = links.map((link, index) => {
-    if (link.path !== "/") {
-      return (
-        <Link key={index} to={link.path} className="nav__link">
-          <li>{link.text}</li>
-        </Link>
-      );
-    }
-    return false;
-  });
-
   return (
     <Routes>
-      <Route path="/" element={<Navigation navMenu={navMenu} />}>
+      <Route path="/" element={<Navigation />}>
         {routes}
       </Route>
     </Routes>

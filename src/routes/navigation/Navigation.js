@@ -4,10 +4,18 @@ import "../../assets/images/crown.svg";
 import "./Navigation.scss";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/user";
+import { signOutUser } from "../../utils/firebase/firebase";
 
-export const Navigation = ({ navMenu }) => {
-  const { currentUser } = useContext(UserContext);
+export const Navigation = () => {
+
+  const {currentUser, setCurrentUser} = useContext(UserContext);
   console.log(currentUser);
+
+  const handleSignOut = async () => {
+    await signOutUser();
+    setCurrentUser(null);
+  }
+
   return (
     <>
       <header className="header">
@@ -15,7 +23,19 @@ export const Navigation = ({ navMenu }) => {
           <Logo className="logo" />
         </Link>
         <nav>
-          <ul className="nav">{navMenu}</ul>
+          <ul className="nav">
+            <Link to="shop">
+              <li className="nav__link">shop</li>
+            </Link>
+            <Link to="contact">
+              <li className="nav__link" to="contact">contact</li>
+            </Link>
+            {
+              currentUser ? (
+                <Link><li className="nav__link" onClick={handleSignOut}>sign out</li></Link>
+              ) : (<Link to="auth"><li className="nav__link">sign in</li></Link>)
+            }
+          </ul>
         </nav>
       </header>
       <Outlet />
