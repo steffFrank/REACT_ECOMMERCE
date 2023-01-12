@@ -1,4 +1,4 @@
-import { signInWithGooglePopup, createUserDocumentFromAuth } from "../../utils/firebase/firebase";
+import { signInWithGooglePopup } from "../../utils/firebase/firebase";
 import { Button } from "../Button/Button";
 import { FormInput } from "../FormInput/FormInput";
 import { useState } from "react";
