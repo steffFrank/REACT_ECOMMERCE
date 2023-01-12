@@ -5,6 +5,7 @@ import "./Navigation.scss";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/user";
 import { signOutUser } from "../../utils/firebase/firebase";
+import { CartIcon } from "../../Components/CartIcon/CartIcon";
 
 export const Navigation = () => {
 
@@ -29,6 +30,7 @@ export const Navigation = () => {
                 <Link><li className="nav__link" onClick={signOutUser}>sign out</li></Link>
               ) : (<Link to="auth"><li className="nav__link">sign in</li></Link>)
             }
+            <CartIcon />
           </ul>
         </nav>
       </header>

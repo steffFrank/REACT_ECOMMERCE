@@ -4,7 +4,6 @@ import {Shop} from "./routes/shop/Shop";
 import {Navigation}  from "./routes/navigation/Navigation";
 import {Contact}  from "./routes/contact/Contact";
 import {Authentication}  from "./routes/authentication/Authentication";
-
 import "./App.scss";
 
 export const App = () => {
