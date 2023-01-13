@@ -6,12 +6,13 @@ import "./ProductCard.scss";
 
 export const ProductCard = ({product}) => {
     const {name, price, imageUrl} = product;
-    const {setCartDropdownItems} = useContext(CartDropdownContext);
+    const {setCartDropdownItems, setCartCount} = useContext(CartDropdownContext);
 
     const handleAddToCartClick = () => {
             setCartDropdownItems(prevState => {
                 return [...prevState, product]
             });
+            setCartCount(prevState => prevState + 1);
     }
 
     return (

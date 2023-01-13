@@ -3,9 +3,8 @@ import { ReactComponent as ShoppingCart } from "../../assets/images/shopping-bag
 import { useContext } from "react";
 import { CartDropdownContext } from "../../contexts/cart-dropdown";
 
-
 export const CartIcon = () => {
-    const { setIsCartDropdownOpen } = useContext(CartDropdownContext);
+    const { setIsCartDropdownOpen, cartCount } = useContext(CartDropdownContext);
 
     const handleCartClick = () => {
         setIsCartDropdownOpen(prevState => !prevState);
@@ -14,7 +13,7 @@ export const CartIcon = () => {
     return (
         <div className="cart-icon-container" onClick={handleCartClick}>
             <ShoppingCart className="shopping-icon"/>
-            <span className="item-count">0</span>
+            <span className="item-count">{cartCount}</span>
         </div>
     )
 }
