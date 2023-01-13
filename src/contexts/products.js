@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { onAuthStateChangedListener } from "../utils/firebase/firebase";
+// import { onAuthStateChangedListener } from "../utils/firebase/firebase";
 
 import PRODUCTS from "../shop-data.json";
 
