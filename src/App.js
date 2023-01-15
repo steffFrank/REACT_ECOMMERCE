@@ -5,6 +5,7 @@ import {Navigation}  from "./routes/navigation/Navigation";
 import {Contact}  from "./routes/contact/Contact";
 import {Authentication}  from "./routes/authentication/Authentication";
 import "./App.scss";
+import { Checkout } from "./routes/checkout/Checkout";
 
 export const App = () => {
   const links = [
@@ -12,6 +13,7 @@ export const App = () => {
     { path: "contact" , text: "contact", element: <Contact />},
     { path: "auth", text: "sign in", element: <Authentication />},
     { path: "/", text: "home", element: <Home />},
+    { path: "checkout", text: "checkout", element: <Checkout />}
   ];
 
   const routes = links.map((link, index) => {

@@ -20,7 +20,6 @@ root.render(
         </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
-
   </React.StrictMode>
 );
 

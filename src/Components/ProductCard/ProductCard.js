@@ -6,7 +6,7 @@ import "./ProductCard.scss";
 
 export const ProductCard = ({product}) => {
     const {name, price, imageUrl} = product;
-    const { addToCart } = useContext(CartDropdownContext);
+    const { updateCart } = useContext(CartDropdownContext);
 
     return (
         <div className="product-card-container">
@@ -15,7 +15,7 @@ export const ProductCard = ({product}) => {
                 <span className="card-footer__name">{name}</span>
                 <span className="card-footer__price">{price}</span>
             </div>
-            <Button buttonType="inverted" onClick={() => addToCart(product)}>Add to Card</Button>
+            <Button buttonType="inverted" onClick={() => updateCart(product, "increase")}>Add to Card</Button>
         </div>
     )
 }
