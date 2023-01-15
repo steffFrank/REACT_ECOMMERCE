@@ -7,7 +7,7 @@ export const CartDropdownContext = createContext({
     setIsCartDropdownOpen: () => {},
     setCartDropdownItems: () => {},
     cartCount: 0,
-    addToCart: () => {}
+    updateCart: () => {}
 });
 
 
@@ -22,12 +22,16 @@ export const CartDropdownProvider = ({children}) => {
     }, [cartDropdownItems])
 
 
-    const addToCart = (product) => {
+    const updateCart = (product, mode) => {
         const newCart = [...cartDropdownItems];
-
         for (const element of newCart) {
             if (element.id === product.id) {
-                element.qty = product.qty + 1;
+                if (mode === "increase") {
+                    element.qty = product.qty + 1;
+                }
+                if (mode === "decrease") {
+                    element.qty = product.qty - 1;
+                }
                 setCartDropdownItems(newCart);
                 return;
             }
@@ -35,7 +39,7 @@ export const CartDropdownProvider = ({children}) => {
         setCartDropdownItems([...newCart, product]);
     }
 
-    const value = {cartDropdownItems, setCartDropdownItems, isCartDropdownOpen, setIsCartDropdownOpen, addToCart, cartCount};
+    const value = {cartDropdownItems, setCartDropdownItems, isCartDropdownOpen, setIsCartDropdownOpen, updateCart, cartCount};
 
     return <CartDropdownContext.Provider value={value}>{children}</CartDropdownContext.Provider>
 }
