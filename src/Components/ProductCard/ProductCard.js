@@ -18,7 +18,6 @@ export const ProductCard = ({product}) => {
                 }
                 return [...prevState, product];
             });
-            setCartCount(prevState => Number(prevState) + 1);
     }
     return (
         <div className="product-card-container">
