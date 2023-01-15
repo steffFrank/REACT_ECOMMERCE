@@ -7,7 +7,6 @@ export const CartDropdownContext = createContext({
     setIsCartDropdownOpen: () => {},
     setCartDropdownItems: () => {},
     cartCount: 0,
-    setCartCount: () => {}
 });
 
 
