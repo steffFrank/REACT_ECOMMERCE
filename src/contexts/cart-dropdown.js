@@ -23,15 +23,16 @@ export const CartDropdownProvider = ({children}) => {
 
 
     const addToCart = (product) => {
-        setCartDropdownItems(prevState => {
-            for (const element of prevState) {
-                if (element.id === product.id) {
-                    element.qty = product.qty + 1;
-                    return [...prevState];
-                }
+        const newCart = [...cartDropdownItems];
+
+        for (const element of newCart) {
+            if (element.id === product.id) {
+                element.qty = product.qty + 1;
+                setCartDropdownItems(newCart);
+                return;
             }
-            return [...prevState, product];
-        });
+        }
+        setCartDropdownItems([...newCart, product]);
     }
 
     const value = {cartDropdownItems, setCartDropdownItems, isCartDropdownOpen, setIsCartDropdownOpen, addToCart, cartCount};
