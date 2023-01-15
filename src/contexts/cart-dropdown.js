@@ -7,6 +7,7 @@ export const CartDropdownContext = createContext({
     setIsCartDropdownOpen: () => {},
     setCartDropdownItems: () => {},
     cartCount: 0,
+    addToCart: () => {}
 });
 
 
@@ -16,11 +17,24 @@ export const CartDropdownProvider = ({children}) => {
     const [cartCount, setCartCount] = useState(0);
 
     useEffect(() => {
-        const newCartCount = cartDropdownItems.reduce((total, cartDropDwonItem) => total + cartDropDwonItem.qty, 0);
+        const newCartCount = cartDropdownItems.reduce((total, cartDropdownItem) => total + cartDropdownItem.qty, 0);
         setCartCount(newCartCount);
     }, [cartDropdownItems])
 
-    const value = {cartDropdownItems, setCartDropdownItems, isCartDropdownOpen, setIsCartDropdownOpen, cartCount};
+
+    const addToCart = (product) => {
+        setCartDropdownItems(prevState => {
+            for (const element of prevState) {
+                if (element.id === product.id) {
+                    element.qty = product.qty + 1;
+                    return [...prevState];
+                }
+            }
+            return [...prevState, product];
+        });
+    }
+
+    const value = {cartDropdownItems, setCartDropdownItems, isCartDropdownOpen, setIsCartDropdownOpen, addToCart, cartCount};
 
     return <CartDropdownContext.Provider value={value}>{children}</CartDropdownContext.Provider>
 }
