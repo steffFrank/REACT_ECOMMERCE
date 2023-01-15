@@ -11,7 +11,15 @@ export const CartDropdown = () => {
         <div className="cart-dropdown-container">
             <div className="cart-items">
                 {cartDropdownItems.map(item => {
-                    return <h3 key={item.id}>{item.id} {item.name} {item.qty}</h3>
+                    return (
+                        <article className="item">
+                            <img src={item.imageUrl} alt={item.name}/>
+                            <div className="item__title">
+                                <h4>{item.name}</h4>
+                                <span>{item.qty} x ${item.price}</span>
+                            </div>
+                        </article>
+                    )
                 })   }
             </div>
             <Button>Go to checkout</Button>
