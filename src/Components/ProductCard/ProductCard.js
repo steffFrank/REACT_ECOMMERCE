@@ -5,16 +5,21 @@ import "./ProductCard.scss";
 
 
 export const ProductCard = ({product}) => {
-    const {name, price, imageUrl} = product;
+    const {id, name, price, imageUrl, qty} = product;
     const {setCartDropdownItems, setCartCount} = useContext(CartDropdownContext);
 
-    const handleAddToCartClick = () => {
+    const addToCart = () => {
             setCartDropdownItems(prevState => {
-                return [...prevState, product]
+                for (const element of prevState) {
+                    if (element.id === id) {
+                        element.qty = qty + 1;
+                        return [...prevState];
+                    }
+                }
+                return [...prevState, product];
             });
-            setCartCount(prevState => prevState + 1);
+            setCartCount(prevState => Number(prevState) + 1);
     }
-
     return (
         <div className="product-card-container">
             <img src={imageUrl} alt={`${name}`}/>
@@ -22,7 +27,7 @@ export const ProductCard = ({product}) => {
                 <span className="card-footer__name">{name}</span>
                 <span className="card-footer__price">{price}</span>
             </div>
-            <Button buttonType="inverted" onClick={handleAddToCartClick}>Add to Card</Button>
+            <Button buttonType="inverted" onClick={addToCart}>Add to Card</Button>
         </div>
     )
 }

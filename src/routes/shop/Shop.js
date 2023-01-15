@@ -10,7 +10,8 @@ export const Shop = () => {
     return (
         <div className="shop-container">
             {products.map(product => {
-                return <ProductCard key={product.id} product={product}/>
+                const newProduct = {...product, qty: 1}
+                return <ProductCard key={product.id} product={newProduct}/>
             })}
         </div>
     )

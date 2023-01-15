@@ -36,7 +36,7 @@ export const Navigation = () => {
             <CartIcon />
           </ul>
         </nav>
-        {isCartDropdownOpen ? <CartDropdown /> : null}
+        {isCartDropdownOpen && <CartDropdown />}
       </header>
       <Outlet />
     </>
