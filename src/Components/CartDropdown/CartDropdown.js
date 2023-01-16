@@ -6,15 +6,17 @@ import { useNavigate } from "react-router-dom";
 
 export const CartDropdown = () => {
 
-    const { cartDropdownItems } = useContext(CartDropdownContext);
+    const { cartDropdownItems, setIsCartDropdownOpen } = useContext(CartDropdownContext);
     const navigate = useNavigate();
 
     const goToCheckoutHandler = () => {
         navigate("/checkout");
+        setIsCartDropdownOpen(false);
     }
 
     return (
         <div className="cart-dropdown-container">
+            {cartDropdownItems.length > 0 ? 
             <div className="cart-items">
                 {cartDropdownItems.map(item => {
                     return (
@@ -27,7 +29,7 @@ export const CartDropdown = () => {
                         </article>
                     )
                 })}
-            </div>
+            </div> : <p className="empty-message">Your cart is empty</p>}
             <Button onClick={goToCheckoutHandler} buttonType="inverted">Go to checkout</Button>
         </div>
     )

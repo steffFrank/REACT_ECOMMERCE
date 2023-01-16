@@ -4,24 +4,12 @@ import "./Checkout.scss";
 
 
 export const Checkout = () => {
-    const {setCartDropdownItems, updateCart, totalPrice, cartDropdownItems} = useContext(CartDropdownContext);
-    
-
-    const updateQuantity = (item, mode) => {
-        updateCart(item, mode);
-    }
-
-    const removeItem = (id) => {
-        setCartDropdownItems(prevState => {
-            const newCartItems = prevState.filter(item => item.id !== id);
-            return newCartItems;
-        })
-    }
+    const {removeItem, updateCartQuantity, cartTotalPrice, cartDropdownItems} = useContext(CartDropdownContext);
 
     return (
        <section className="checkout">
        { cartDropdownItems.length > 0 ? 
-                <table>
+        <table>
             <thead>
                 <tr>
                     <th>Product</th>
@@ -40,24 +28,24 @@ export const Checkout = () => {
                             <td>{name}</td>
                             <td>
                                 <div>
-                                    <span className="arrow" onClick={() => updateQuantity(item, "decrease")}>&lt; </span>
-                                    <span>{qty}</span>
-                                    <span className="arrow" onClick={() => updateQuantity(item, "increase")}> &gt;</span>
+                                    <span className="arrow" onClick={() => updateCartQuantity(item, "decrease")}>&#10094;</span>
+                                    <span className="value">{qty}</span>
+                                    <span className="arrow" onClick={() => updateCartQuantity(item, "increase")}>&#10095;</span>
                                 </div>
                             </td>
                             <td>{price}</td>
-                            <td><span onClick={() => removeItem(id)} className="remove">x</span></td>
+                            <td><span onClick={() => removeItem(item)} className="remove">&#x292C;</span></td>
                         </tr>
                     )
                 })}
             </tbody>
             <tfoot>
                 <tr>    
-                    <td colSpan={5}>Total : ${totalPrice}</td>
+                    <td colSpan={5}>Total : ${cartTotalPrice}</td>
                 </tr>
             </tfoot>
-        </table> : <p className="empty-message">Your cart is empty</p>}
+        </table> : <p className="empty-message">Your cart is empty</p>
+        }
        </section>
-       
     )
 }
