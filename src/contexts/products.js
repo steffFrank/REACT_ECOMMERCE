@@ -1,23 +1,22 @@
 import { createContext, useState, useEffect } from "react";
-// import { onAuthStateChangedListener } from "../utils/firebase/firebase";
 
-import PRODUCTS from "../shop-data.json";
+import { getCategoriesAndDocuments } from "../utils/firebase/firebase";
 
-
-export const ProductsContext = createContext({
-    products: [],
+export const categoriesContext = createContext({
+    categoriesMap: {},
 });
 
 
-export const ProductsProvider = ({children}) => {
-    const [products, setProducts] = useState(PRODUCTS);
+export const CategoriesProvider = ({children}) => {
+    const [categoriesMap, setCategoriesMap] = useState([]);
+    
+    useEffect(() => {
+        const getCategoriesMap = async () => {
+            const categoriesMap = await getCategoriesAndDocuments();
+            setCategoriesMap(categoriesMap);
+        }
+        getCategoriesMap();
+    }, []);
 
-    // useEffect(() => {
-    //     const unsubscribe = onAuthStateChangedListener(product => {
-    //         setProducts(product);
-    //     });
-    //     return unsubscribe;
-    // });
-
-    return <ProductsContext.Provider value={{products}}>{children}</ProductsContext.Provider>
+    return <categoriesContext.Provider value={{categoriesMap}}>{children}</categoriesContext.Provider>
 }
