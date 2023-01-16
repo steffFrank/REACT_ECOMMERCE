@@ -7,8 +7,8 @@ export const Categories = ({categories}) => {
         return <Category key={category.id} category={category} />
     })
     return (
-        <div className="category-container">
+        <main className="category-container">
             {categoriesList}
-        </div>
+        </main>
     );
 }

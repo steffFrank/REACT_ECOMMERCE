@@ -1,0 +1,12 @@
+.shop-container {
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+        text-transform: capitalize;
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 50px 0 30px;
+        cursor: pointer;
+    }
+}
