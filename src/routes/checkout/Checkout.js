@@ -18,9 +18,10 @@ export const Checkout = () => {
         })
     }
 
-    
     return (
-        <table>
+       <section className="checkout">
+       { cartDropdownItems.length > 0 ? 
+                <table>
             <thead>
                 <tr>
                     <th>Product</th>
@@ -51,8 +52,12 @@ export const Checkout = () => {
                 })}
             </tbody>
             <tfoot>
-                <td colSpan={5}>Total: {totalPrice}</td>
+                <tr>    
+                    <td colSpan={5}>Total : ${totalPrice}</td>
+                </tr>
             </tfoot>
-        </table>
+        </table> : <p className="empty-message">Your cart is empty</p>}
+       </section>
+       
     )
 }
