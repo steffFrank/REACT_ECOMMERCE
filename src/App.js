@@ -6,7 +6,6 @@ import {Contact}  from "./routes/contact/Contact";
 import {Authentication}  from "./routes/authentication/Authentication";
 import "./App.scss";
 import { Checkout } from "./routes/checkout/Checkout";
-import { Category } from "./routes/category/category";
 
 export const App = () => {
   const links = [
