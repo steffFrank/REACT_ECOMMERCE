@@ -4,7 +4,7 @@ import "./Checkout.scss";
 
 
 export const Checkout = () => {
-    const {removeItem, updateCartQuantity, cartTotalPrice, cartDropdownItems} = useContext(CartDropdownContext);
+    const {removeItem, addProductToCart, removeProductFromCart, cartTotalPrice, cartDropdownItems} = useContext(CartDropdownContext);
 
     return (
        <section className="checkout">
@@ -28,9 +28,9 @@ export const Checkout = () => {
                             <td>{name}</td>
                             <td>
                                 <div>
-                                    <span className="arrow" onClick={() => updateCartQuantity(item, "decrease")}>&#10094;</span>
+                                    <span className="arrow" onClick={() => removeProductFromCart(item)}>&#10094;</span>
                                     <span className="value">{qty}</span>
-                                    <span className="arrow" onClick={() => updateCartQuantity(item, "increase")}>&#10095;</span>
+                                    <span className="arrow" onClick={() => addProductToCart(item)}>&#10095;</span>
                                 </div>
                             </td>
                             <td>{price}</td>

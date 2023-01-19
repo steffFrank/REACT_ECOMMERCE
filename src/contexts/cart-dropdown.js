@@ -5,95 +5,116 @@ export const CartDropdownContext = createContext({
     cartDropdownItems: [],
     isCartDropdownOpen: false,
     setIsCartDropdownOpen: () => {},
-    setCartDropdownItems: () => {},
     cartCount: 0,
-    updateCartQuantity: () => {},
+    addProductToCart: () => {},
     cartTotalPrice: 0,
     removeItem: () => {}
 });
 
 const CART_ACTION_TYPES = {
-    IS_CART_DROPDOWN_OPEN: "IS_CART_DROPDOWN_OPEN",
-    REMOVE_ITEM: "REMOVE_ITEM",
-    UPDATE_CART_QUANTITY: "UPDATE_CART_QUANTITY"
+    SET_CART_ITEMS: "SET_CART_ITEMS",
+    IS_CART_DROPDOWN_OPEN: "IS_CART_DROPDOWN_OPEN"
 }
 
+const helperRemoveItem = (products, product) => {
+    const newCartItems = products.filter(item => item.id !== product.id);
+    return newCartItems
+}
+
+const addProduct = (cartItems, product) => {
+    const existingProduct = cartItems.find(item => product.id === item.id);
+    if (existingProduct) {
+        return cartItems.map(item => 
+            item.id === product.id ? {...item, qty: item.qty + 1} :  item
+        )
+    }
+    return [...cartItems, {...product, qty: 1}];
+}
+
+const removeProduct = (cartItems, product) => {
+    const existingProduct = cartItems.find(item => product.id === item.id);
+
+    if (existingProduct.qty === 1) {
+        return cartItems.filter(item => item.id !== existingProduct.id);
+    }
+    if (existingProduct) {
+        return cartItems.map(item => 
+            item.id === product.id ? {...item, qty: item.qty - 1} :  item
+        )
+    }
+}
 
 const cartReducer = (state, action) => {
     const {type, payload} = action;
+
     switch (type) {
         case CART_ACTION_TYPES.IS_CART_DROPDOWN_OPEN:
             return {
                 ...state,
                 isCartDropdownOpen: !payload
             };
+        case CART_ACTION_TYPES.SET_CART_ITEMS:
+            return {
+                ...state,
+                ...payload
+            }
         default:
             throw new Error(`Unhandled action type ${type} in cartReducer`);
     }
 }
 
 const INITIAL_STATE = {
-    isCartDropdownOpen: false
+    isCartDropdownOpen: false,
+    cartDropdownItems: [],
+    cartCount:0,
+    cartTotalPrice: 0
 }
 
 export const CartDropdownProvider = ({children}) => {
 
     const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
-    const { isCartDropdownOpen } = state;
-
-    const [cartDropdownItems, setCartDropdownItems] = useState([]);
-    // const [isCartDropdownOpen, setIsCartDropdownOpen] = useState(false);
-    const [cartCount, setCartCount] = useState(0);
-    const [cartTotalPrice, setCartTotalPrice] = useState(0);
+    const { isCartDropdownOpen, cartDropdownItems, cartCount, cartTotalPrice } = state;
 
     const setIsCartDropdownOpen = () => {
-        console.log(isCartDropdownOpen);
         dispatch({type:CART_ACTION_TYPES.IS_CART_DROPDOWN_OPEN, payload:isCartDropdownOpen});
     }
 
-    useEffect(() => {
-        const newCartCount = cartDropdownItems.reduce((total, cartDropdownItem) => total + cartDropdownItem.qty, 0);
-        setCartCount(newCartCount);
-        
-        const newTotal = cartDropdownItems.reduce((total, item) => total + (item.price * item.qty), 0);
-        setCartTotalPrice(newTotal);
-    }, [cartDropdownItems])
-    
+    const updateCartItemsReducer = (cartItems) => {
+        const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.qty, 0);
 
-    const removeItem = (product) => {
-        setCartDropdownItems(prevState => {
-            const newCartItems = prevState.filter(item => item.id !== product.id);
-            return newCartItems;
-        })
+        const newTotal = cartItems.reduce((total, cartItem) => total + (cartItem.price * cartItem.qty), 0);
+
+        dispatch({
+            type: CART_ACTION_TYPES.SET_CART_ITEMS, 
+            payload: {
+                cartDropdownItems:cartItems,
+                cartCount: newCartCount, 
+                cartTotalPrice: newTotal
+            }
+        });
+    }
+   
+    const addProductToCart = (product) => {
+        const newCartItems = addProduct(cartDropdownItems, product);
+        updateCartItemsReducer(newCartItems);
     }
 
-    const updateCartQuantity = (product, mode) => {
-        const newCart = [...cartDropdownItems];
-        for (const element of newCart) {
-            if (element.id === product.id) {
-                if (mode === "increase") {
-                    element.qty = product.qty + 1;
-                }
-                if (mode === "decrease") {
-                    element.qty = product.qty - 1;
-                    if (element.qty === 0) {
-                         removeItem(element);
-                         return;
-                    }
-                }
-                setCartDropdownItems(newCart);
-                return;
-            }
-        }
-        setCartDropdownItems([...newCart, product]);
+    const removeProductFromCart = (product) => {
+        const newCartItems = removeProduct(cartDropdownItems, product);
+        updateCartItemsReducer(newCartItems);
+    }
+
+    const removeItem = (product) => {
+        const newCartItems = helperRemoveItem(cartDropdownItems, product);
+        updateCartItemsReducer(newCartItems);
     }
 
     const value = {
         cartDropdownItems,
-        setCartDropdownItems,
         isCartDropdownOpen,
         setIsCartDropdownOpen,
-        updateCartQuantity,
+        addProductToCart,
+        removeProductFromCart,
         cartCount,
         cartTotalPrice,
         removeItem

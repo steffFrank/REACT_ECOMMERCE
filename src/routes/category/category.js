@@ -19,8 +19,7 @@ export const Category = () => {
             <h2 className="category-title">{category.toUpperCase()}</h2>
             <main className="categories-preview">
                 {products && products.map(product => {
-                    const newProduct = {...product, qty: 1}
-                    return <ProductCard key={product.id} product={newProduct} />
+                    return <ProductCard key={product.id} product={product} />
                 })}
             </main>
         </>
