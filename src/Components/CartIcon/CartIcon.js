@@ -7,7 +7,7 @@ export const CartIcon = () => {
     const { setIsCartDropdownOpen, cartCount } = useContext(CartDropdownContext);
 
     const toggleCartDropdown = () => {
-        setIsCartDropdownOpen(prevState => !prevState);
+        setIsCartDropdownOpen();
     }
 
     return (
