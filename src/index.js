@@ -4,22 +4,24 @@ import "./reset.css";
 import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import  { UserProvider }  from "./contexts/user";
+
 import { CategoriesProvider } from "./contexts/products";
 import { CartDropdownProvider } from "./contexts/cart-dropdown";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <UserProvider>
-        <CategoriesProvider>
-          <CartDropdownProvider>
-            <App />
-          </CartDropdownProvider>
-        </CategoriesProvider>
-      </UserProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+          <CategoriesProvider>
+            <CartDropdownProvider>
+              <App />
+            </CartDropdownProvider>
+          </CategoriesProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

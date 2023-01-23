@@ -3,15 +3,18 @@ import { ReactComponent as Logo } from "../../assets/images/crown.svg";
 import "../../assets/images/crown.svg";
 import "./Navigation.scss";
 import { useContext } from "react";
-import { UserContext } from "../../contexts/user";
+// import { UserContext } from "../../contexts/user";
 import { signOutUser } from "../../utils/firebase/firebase";
 import { CartIcon } from "../../Components/CartIcon/CartIcon";
 import { CartDropdown } from "../../Components/CartDropdown/CartDropdown";
 import { CartDropdownContext } from "../../contexts/cart-dropdown";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 export const Navigation = () => {
 
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
+ 
   const { isCartDropdownOpen } = useContext(CartDropdownContext);
 
   return (

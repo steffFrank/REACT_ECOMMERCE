@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./utils/firebase/firebase";
+import { useDispatch } from "react-redux";
 import  {Home}  from "./routes/home/Home";
 import { Routes, Route} from "react-router-dom";
 import {Shop} from "./routes/shop/Shop";
@@ -6,8 +9,24 @@ import {Contact}  from "./routes/contact/Contact";
 import {Authentication}  from "./routes/authentication/Authentication";
 import "./App.scss";
 import { Checkout } from "./routes/checkout/Checkout";
+import { setCurrentUser } from "./store/user/user.action";
+
+
 
 export const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+        if (user) {
+            createUserDocumentFromAuth(user);
+        }
+        dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
+},[]);
+
   const links = [
     { path: "shop/*", text: "shop", element: <Shop />},
     { path: "contact" , text: "contact", element: <Contact />},
