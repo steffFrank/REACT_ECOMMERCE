@@ -10,8 +10,7 @@ import {Authentication}  from "./routes/authentication/Authentication";
 import "./App.scss";
 import { Checkout } from "./routes/checkout/Checkout";
 import { setCurrentUser } from "./store/user/user.action";
-import { setCategoriesMap } from "./store/categories/category.action";
-import { getCategoriesAndDocuments } from "./utils/firebase/firebase";
+
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -26,16 +25,6 @@ export const App = () => {
 
     return unsubscribe;
 },[dispatch]);
-
-// Get the categories at first page loading
-useEffect(() => {
-  const getCategoriesMap = async () => {
-      const categories = await getCategoriesAndDocuments();
-      dispatch(setCategoriesMap(categories));
-  }
-  getCategoriesMap();
-}, [dispatch]);
-
 
   const links = [
     { path: "shop/*", text: "shop", element: <Shop />},
