@@ -1,9 +1,12 @@
 import { createSelector } from "reselect";
 
-export const selectIsCartDropdownOpen = state => state.cartDropdownItems.isCartDropdownOpen;
+const selectCartReducer = state => state.cartDropdownItems;
 
-export const selectNewCartCount = state => state.cartDropdownItems.cartDropdownItems.reduce((total, cartItem) => total + cartItem.qty,  0);
+export const selectNewCartItems = createSelector([selectCartReducer], cartDropdownItems => cartDropdownItems.cartDropdownItems);
 
-export const selectNewCartTotal = state => state.cartDropdownItems.cartDropdownItems.reduce((total, cartItem) => total + (cartItem.qty * cartItem.price), 0);
+export const selectIsCartDropdownOpen = createSelector([selectCartReducer],cartDropdownItems => cartDropdownItems.isCartDropdownOpen);
 
-export const selectNewCartItems = state => state.cartDropdownItems.cartDropdownItems;
+export const selectNewCartCount = createSelector([selectCartReducer],cartDropdownItems => cartDropdownItems.cartDropdownItems.reduce((total, cartItem) => total + cartItem.qty,  0));
+
+export const selectNewCartTotal = createSelector([selectCartReducer], cartDropdownItems => cartDropdownItems.cartDropdownItems.reduce((total, cartItem) => total + (cartItem.qty * cartItem.price), 0));
+
