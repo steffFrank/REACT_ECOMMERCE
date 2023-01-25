@@ -44,24 +44,24 @@ const removeProduct = (cartItems, product) => {
     }
 }
 
-const cartReducer = (state, action) => {
-    const {type, payload} = action;
+// const cartReducer = (state, action) => {
+//     const {type, payload} = action;
 
-    switch (type) {
-        case CART_ACTION_TYPES.IS_CART_DROPDOWN_OPEN:
-            return {
-                ...state,
-                isCartDropdownOpen: !payload
-            };
-        case CART_ACTION_TYPES.SET_CART_ITEMS:
-            return {
-                ...state,
-                ...payload
-            }
-        default:
-            throw new Error(`Unhandled action type ${type} in cartReducer`);
-    }
-}
+//     switch (type) {
+//         case CART_ACTION_TYPES.IS_CART_DROPDOWN_OPEN:
+//             return {
+//                 ...state,
+//                 isCartDropdownOpen: !payload
+//             };
+//         case CART_ACTION_TYPES.SET_CART_ITEMS:
+//             return {
+//                 ...state,
+//                 ...payload
+//             }
+//         default:
+//             throw new Error(`Unhandled action type ${type} in cartReducer`);
+//     }
+// }
 
 const INITIAL_STATE = {
     isCartDropdownOpen: false,
@@ -72,26 +72,26 @@ const INITIAL_STATE = {
 
 export const CartDropdownProvider = ({children}) => {
 
-    const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
-    const { isCartDropdownOpen, cartDropdownItems, cartCount, cartTotalPrice } = state;
+    // const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+    const { isCartDropdownOpen, cartDropdownItems, cartCount, cartTotalPrice } = INITIAL_STATE;
 
-    const setIsCartDropdownOpen = () => {
-        dispatch({type:CART_ACTION_TYPES.IS_CART_DROPDOWN_OPEN, payload:isCartDropdownOpen});
-    }
+    // const setIsCartDropdownOpen = () => {
+    //     dispatch({type:CART_ACTION_TYPES.IS_CART_DROPDOWN_OPEN, payload:isCartDropdownOpen});
+    // }
 
     const updateCartItemsReducer = (cartItems) => {
         const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.qty, 0);
 
         const newTotal = cartItems.reduce((total, cartItem) => total + (cartItem.price * cartItem.qty), 0);
 
-        dispatch({
-            type: CART_ACTION_TYPES.SET_CART_ITEMS, 
-            payload: {
-                cartDropdownItems:cartItems,
-                cartCount: newCartCount, 
-                cartTotalPrice: newTotal
-            }
-        });
+        // dispatch({
+        //     type: CART_ACTION_TYPES.SET_CART_ITEMS, 
+        //     payload: {
+        //         cartDropdownItems:cartItems,
+        //         cartCount: newCartCount, 
+        //         cartTotalPrice: newTotal
+        //     }
+        // });
     }
    
     const addProductToCart = (product) => {
@@ -112,7 +112,7 @@ export const CartDropdownProvider = ({children}) => {
     const value = {
         cartDropdownItems,
         isCartDropdownOpen,
-        setIsCartDropdownOpen,
+        // setIsCartDropdownOpen,
         addProductToCart,
         removeProductFromCart,
         cartCount,

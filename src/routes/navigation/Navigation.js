@@ -10,12 +10,12 @@ import { CartDropdown } from "../../Components/CartDropdown/CartDropdown";
 import { CartDropdownContext } from "../../contexts/cart-dropdown";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
-
+import { selectIsCartDropdownOpen } from "../../store/cart-dropdown/cart-dropdown.selector";
 export const Navigation = () => {
 
   const currentUser = useSelector(selectCurrentUser);
  
-  const { isCartDropdownOpen } = useContext(CartDropdownContext);
+  const  isCartDropdownOpen  = useSelector(selectIsCartDropdownOpen);
 
   return (
     <>

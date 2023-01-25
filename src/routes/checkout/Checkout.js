@@ -1,10 +1,16 @@
-import { CartDropdownContext } from "../../contexts/cart-dropdown";
-import { useContext } from "react";
 import "./Checkout.scss";
-
+import { addProductToCartAction, removeProductFromCartAction, removeItemAction  } from "../../store/cart-dropdown/cart-dropdown.action";
+import { useDispatch, useSelector } from "react-redux";
+import { selectNewCartItems, selectNewCartTotal } from "../../store/cart-dropdown/cart-dropdown.selector";
 
 export const Checkout = () => {
-    const {removeItem, addProductToCart, removeProductFromCart, cartTotalPrice, cartDropdownItems} = useContext(CartDropdownContext);
+    const dispatch = useDispatch();
+    const cartDropdownItems = useSelector(selectNewCartItems);
+    const cartTotalPrice = useSelector(selectNewCartTotal);
+
+    const removeItem = product => dispatch(removeItemAction(cartDropdownItems, product));
+    const removeProductFromCart = product => dispatch(removeProductFromCartAction(cartDropdownItems, product));
+    const addProductToCart = product => dispatch(addProductToCartAction(cartDropdownItems, product));
 
     return (
        <section className="checkout">
