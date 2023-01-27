@@ -3,7 +3,7 @@
 
 export const Loading = () => {
     return (
-        <div class="loading">
+        <div className="loading">
         </div>
     )
 }
