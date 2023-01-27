@@ -2,8 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { CategoriesPreview } from "../../Components/CategoriesPreview/CategoriesPreview";
 import "./shop.scss";
 import { Category } from "../category/category";
-import { setCategories } from "../../store/categories/category.action";
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase";
+import { fetchCategoriesAsync } from "../../store/categories/category.action";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -13,8 +12,7 @@ export const Shop = () => {
     // Get the categories at first page loading
 useEffect(() => {
     const getCategories = async () => {
-        const categoriesArray = await getCategoriesAndDocuments();
-        dispatch(setCategories(categoriesArray));
+        dispatch(fetchCategoriesAsync());
     }
     getCategories();
   }, [dispatch]);
