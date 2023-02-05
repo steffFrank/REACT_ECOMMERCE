@@ -8,7 +8,6 @@ export const CategoriesPreview = () => {
 
     const categoriesMap = useSelector(selectCategories);
     const isLoading = useSelector(selectCategoriesIsLoading);
-    console.log(isLoading);
     
     return (
         <section className="shop-container">
