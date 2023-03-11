@@ -2,18 +2,23 @@ import { Link, Outlet } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/images/crown.svg";
 import "../../assets/images/crown.svg";
 import "./Navigation.scss";
-import { signOutUser } from "../../utils/firebase/firebase";
 import { CartIcon } from "../../Components/CartIcon/CartIcon";
 import { CartDropdown } from "../../Components/CartDropdown/CartDropdown";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartDropdownOpen } from "../../store/cart-dropdown/cart-dropdown.selector";
+import { signOutStart } from "../../store/user/user.action";
+
+
 export const Navigation = () => {
 
   const currentUser = useSelector(selectCurrentUser);
- 
+  const dispatch = useDispatch();
   const  isCartDropdownOpen  = useSelector(selectIsCartDropdownOpen);
 
+  const signOutUser = () => {
+    dispatch(signOutStart());
+  }
   return (
     <>
       <header className="header">
