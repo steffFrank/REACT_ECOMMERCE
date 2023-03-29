@@ -16,7 +16,7 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(checkUserSession());
-},[]);
+},[dispatch]);
 
   const links = [
     { path: "shop/*", text: "shop", element: <Shop />},
